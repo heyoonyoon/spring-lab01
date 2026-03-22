@@ -2,6 +2,7 @@ package com.pattern.springlab.service;
 
 import com.pattern.springlab.domain.Memo;
 import com.pattern.springlab.repository.MemoRepository;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,5 +21,19 @@ public class MemoService {
 
     public List<Memo> getAllMemos() {
         return memoRepository.findAll();
+    }
+
+    @Transactional
+    public Memo updateMemo(Long id, String title, String content) {
+        Memo memo = memoRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("메모를 찾을 수 없습니다."));
+        memo.update(title, content);
+        return memo;
+    }
+
+
+
+    public void deleteMemo(Long id) {
+        memoRepository.deleteById(id);
     }
 }

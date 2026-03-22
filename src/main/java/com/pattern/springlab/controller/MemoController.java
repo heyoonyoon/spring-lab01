@@ -24,5 +24,16 @@ public class MemoController {
         return memoService.getAllMemos();
     }
 
+    @PutMapping("/{id}")
+    public Memo updateMemo(@PathVariable Long id, @RequestBody MemoRequest request) {
+        return memoService.updateMemo(id, request.title(), request.content());
+    }
+
+    @DeleteMapping("/{id}")
+    public void deleteMemo(@PathVariable Long id) {
+        memoService.deleteMemo(id);
+    }
+
     public record MemoRequest(String title, String content) {}
+
 }
