@@ -1,4 +1,4 @@
-package com.pattern.springlab.domain;
+package com.pattern.springlab.domain.memo.entity;
 
 import jakarta.persistence.*;
 import lombok.Getter;

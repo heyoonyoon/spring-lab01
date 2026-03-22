@@ -1,7 +1,7 @@
-package com.pattern.springlab.controller;
+package com.pattern.springlab.domain.memo.controller;
 
-import com.pattern.springlab.domain.Memo;
-import com.pattern.springlab.service.MemoService;
+import com.pattern.springlab.domain.memo.entity.Memo;
+import com.pattern.springlab.domain.memo.service.MemoService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
