@@ -5,6 +5,8 @@ import com.pattern.springlab.domain.user.dto.LoginResponse;
 import com.pattern.springlab.domain.user.dto.SignUpRequest;
 import com.pattern.springlab.domain.user.entity.User;
 import com.pattern.springlab.domain.user.repository.UserRepository;
+import com.pattern.springlab.global.exception.BusinessException;
+import com.pattern.springlab.global.exception.ErrorCode;
 import com.pattern.springlab.global.jwt.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -20,7 +22,7 @@ public class UserService {
 
     public void signUp(SignUpRequest request) {
         if (userRepository.existsByEmail(request.email())) {
-            throw new RuntimeException("이미 사용중인 이메일입니다.");
+            throw new BusinessException(ErrorCode.EMAIL_ALREADY_EXISTS);
         }
         User user = new User(
                 request.email(),
@@ -32,10 +34,10 @@ public class UserService {
 
     public LoginResponse login(LoginRequest request) {
         User user = userRepository.findByEmail(request.email())
-                .orElseThrow(() -> new RuntimeException("존재하지 않는 이메일입니다."));
+                .orElseThrow(() -> new BusinessException(ErrorCode.USER_NOT_FOUND));
 
         if (!passwordEncoder.matches(request.password(), user.getPassword())) {
-            throw new RuntimeException("비밀번호가 일치하지 않습니다.");
+            throw new BusinessException(ErrorCode.INVALID_PASSWORD);
         }
 
         String token = jwtProvider.createAccessToken(user.getEmail());
