@@ -1,7 +1,7 @@
-package com.pattern.springlab.service;
+package com.pattern.springlab.domain.memo.service;
 
-import com.pattern.springlab.domain.Memo;
-import com.pattern.springlab.repository.MemoRepository;
+import com.pattern.springlab.domain.memo.entity.Memo;
+import com.pattern.springlab.domain.memo.repository.MemoRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
